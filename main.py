@@ -5,6 +5,7 @@ from adafruit_servokit import ServoKit
 import threading
 import time
 
+step = 1
 # 初始化伺服电机控制
 kit = ServoKit(channels=16)
 
@@ -19,7 +20,7 @@ dispW, dispH = 640, 480
 
 # 人脸检测模型加载
 face_cascade = cv2.CascadeClassifier('./source/haarcascade_frontalface_default.xml')
-eye_cascade = cv2.CascadeClassifier('./source/haarcascade_eye.xml')
+#//eye_cascade = cv2.CascadeClassifier('./source/haarcascade_eye.xml')
 
 # 标志位用于控制线程退出
 running = True
@@ -53,28 +54,28 @@ def Video_display():
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
                 Xcent = x + w / 2
                 Ycent = y + h / 2
-                errorPan = Xcent - dispW / 2
-                errorTilt = Ycent - dispH / 2
-
-                if abs(errorPan) > 15:
-                    pan -= errorPan / 50
-                if abs(errorTilt) > 15:
-                    tilt -= errorTilt / 50
+                
 
                 # 限制伺服角度范围
                 pan = max(0, min(180, pan))
                 tilt = max(0, min(180, tilt))
 
+                if (Xcent - dispW / 2) >=35:
+                   pan -=  step
+
+                if (Xcent - dispW / 2) <=-35:
+                   pan +=  step
+
+                if (Ycent - dispH / 2) >= 35:
+                   tilt +=  step
+
+                if (Ycent - dispH / 2) <= -35:
+                   tilt -=  step
+
                 # 设置伺服角度
                 kit.servo[0].angle = pan
                 kit.servo[1].angle = tilt
 
-                # 检测眼睛
-                roi_gray = gray[y:y + h, x:x + w]
-                roi_color = frame[y:y + h, x:x + w]
-                eyes = eye_cascade.detectMultiScale(roi_gray)
-                for (ex, ey, ew, eh) in eyes:
-                    cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
 
             # 显示图像
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
