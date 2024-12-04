@@ -2,11 +2,16 @@ import cv2
 from picamera2 import Picamera2
 import libcamera
 from adafruit_servokit import ServoKit
+import time
 
 step = 1
 # 初始化伺服电机控制
 kit = ServoKit(channels=16)
-
+temp = 0
+temp1 = 0
+temp2 = 0
+temp3 = 0
+temp4 = 0
 # 初始伺服角度
 pan = 90
 tilt = 90
@@ -22,7 +27,7 @@ face_cascade = cv2.CascadeClassifier('./source/haarcascade_frontalface_default.x
 
 def Track_Display():
     """摄像头视频采集与人脸检测"""
-    global pan, tilt
+    global pan, tilt,temp1,temp2,temp3,temp4,temp
 
     # 初始化摄像头
     picamera = Picamera2()
@@ -57,19 +62,44 @@ def Track_Display():
 
                 if (Xcent - dispW / 2) >=35:
                    pan -=  step
+                else:
+                    temp1 = 1
 
                 if (Xcent - dispW / 2) <=-35:
                    pan +=  step
+                else:
+                    temp2 = 1
 
                 if (Ycent - dispH / 2) >= 35:
                    tilt +=  step
+                else:
+                    temp3 = 1
 
                 if (Ycent - dispH / 2) <= -35:
                    tilt -=  step
+                else:
+                    temp4 = 1
 
-                # 设置伺服角度
+                if temp1 ==1 and temp2 == 1 and temp3 == 1 and temp4 == 1:
+                    temp = 1
+
+                if temp == 1:
+                    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+                    cv2.imwrite("output.jpeg",frame)
+                    print ("图片拍摄完成！")
+                    break
+                
                 kit.servo[0].angle = pan
                 kit.servo[1].angle = tilt
+                #//time.sleep(0.1)
+
+            if temp == 1:
+                break
+            else: 
+                temp1 = 0
+                temp2 = 0
+                temp3 = 0
+                temp4 = 0
 
 
             # 显示图像
@@ -79,6 +109,8 @@ def Track_Display():
             # 按 'q' 退出
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+
+
     finally:
         # 释放资源
         picamera.stop()
