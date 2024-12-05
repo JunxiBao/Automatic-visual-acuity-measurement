@@ -85,6 +85,7 @@ def Track_Display():
 
                 if temp == 1:
                     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+                    print ("拍摄中～")
                     cv2.imwrite("output.jpeg",frame)
                     print ("图片拍摄完成！")
                     break
