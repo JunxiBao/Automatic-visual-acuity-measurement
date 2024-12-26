@@ -6,7 +6,7 @@ try:
     print("Track_Display结束")
     MyFaceRecognation.main()
 
-    
-    
+
+
 except KeyboardInterrupt:
     exit()

@@ -42,13 +42,13 @@ def Track_Display():
     try:
         while True:
             # 捕获帧
-            time.sleep(0.1)
+            time.sleep(0.15)
             frame = picamera.capture_array()
             frame[..., [0, 2]] = frame[..., [2, 0]]  # B 和 R 通道交换
 
             # 转换为灰度图
             gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-            faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+            faces = face_cascade.detectMultiScale(gray, 1.3, 15)
 
             # 人脸检测与伺服控制
             for (x, y, w, h) in faces:
@@ -96,6 +96,7 @@ def Track_Display():
                 #//time.sleep(0.1)
 
             if temp == 1:
+                time.sleep(0.5)
                 break
             else: 
                 temp1 = 0
