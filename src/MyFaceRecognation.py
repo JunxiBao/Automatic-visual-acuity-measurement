@@ -22,7 +22,7 @@ def load_from_json(json_file):
     names = [item["name"] for item in data]
     return encodings, names
 
-def load_known_faces_with_knn(known_faces_dir, data_file="data/faces.json"):
+def load_known_faces_with_knn(known_faces_dir, data_file="../data/faces.json"):
     """加载已知人脸，构建 KD-Tree，支持增量更新和同步删除"""
     print("Loading known faces...")
     os.makedirs(os.path.dirname(data_file), exist_ok=True)
@@ -80,8 +80,8 @@ def recognize_faces_with_knn(input_image_path, knn, known_names, tolerance=0.6):
 
 def main():
     print("Starting...")
-    known_faces_dir = "./data/image"  # 存放已知人脸图片的目录
-    input_image_path = "./data/output.jpeg"  # 要识别的图片路径
+    known_faces_dir = "../data/image"  # 存放已知人脸图片的目录
+    input_image_path = "../data/output.jpeg"  # 要识别的图片路径
 
     knn, known_encodings, known_names = load_known_faces_with_knn(known_faces_dir)
     print("Known names (without extensions):", known_names)

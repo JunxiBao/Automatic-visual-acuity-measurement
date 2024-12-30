@@ -22,7 +22,7 @@ kit.servo[1].angle = tilt
 dispW, dispH = 640, 480
 
 # 人脸检测模型加载
-face_cascade = cv2.CascadeClassifier('./source/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('../models/haarcascade_frontalface_default.xml')
 
 
 def Track_Display():
@@ -87,7 +87,7 @@ def Track_Display():
                 if temp == 1:
                     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                     print ("拍摄中～")
-                    cv2.imwrite("./data/output.jpeg",frame)
+                    cv2.imwrite("../data/output.jpeg",frame)
                     print ("图片拍摄完成！")
                     break
                 
