@@ -25,7 +25,7 @@ hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5
 mp_draw = mp.solutions.drawing_utils
 
 # 替换成你自己的图片路径
-image_path = './image/1.png'
+image_path = '../data/hand.png'
 image = cv2.imread(image_path)
 image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 results = hands.process(image_rgb)
@@ -37,6 +37,4 @@ if results.multi_hand_landmarks:
         mp_draw.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
 # 显示处理后的图片
-cv2.imshow("Hand Finger Direction", image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.imwrite('../data/hand_result.png', image)
