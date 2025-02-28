@@ -1,0 +1,1 @@
+flask --app src/webUI run --host=0.0.0.0
