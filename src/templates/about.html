@@ -5,103 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>关于此项目</title>
-  <style>
-    /* 通用样式 */
-    body,
-    html {
-      height: 100%;
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f2f2f2;
-      overflow: hidden;
-    }
-
-    .container {
-      text-align: center;
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      padding: 50px 30px;
-      width: 80%;
-      max-width: 600px;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s ease-out forwards;
-    }
-
-    /* 页面元素的动画：淡入并从下方滑入 */
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(50px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h1 {
-      font-size: 36px;
-      color: #4CAF50;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      animation-delay: 0.5s;
-    }
-
-    p {
-      font-size: 18px;
-      color: #333;
-      margin: 15px 0;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      animation-delay: 1s;
-    }
-
-    /* 返回按钮样式 */
-    .btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      animation-delay: 1.5s;
-    }
-
-    .btn:hover {
-      background-color: #45a049;
-      transform: scale(1.1);
-      /* 添加放大效果 */
-    }
-
-    /* 动画：淡入效果 */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../static/home.css">
 </head>
 
 <body>
   <div class="container">
     <h1 id="title">关于此项目</h1>
-    <p id="description">本系统旨在帮助用户自动检测视力，并提供相关测试结果与建议。</p>
-    <p id="moreInfo">该项目使用先进的视觉测试算法，结合用户的输入信息，帮助判断视力健康状况。</p>
+    <p id="description">本系统由宁波赫德KAINGMING班的Jackson搭建</p>
+    <p id="moreInfo">该项目使用计算机视觉算法，来帮助我们的用户进行大规模的视力筛查</p>
     <button class="btn" id="backButton" onclick="goBack()">返回首页</button>
   </div>
 
@@ -119,13 +30,13 @@
 
       if (lang === 'en') {
         title.textContent = "About This Project";
-        description.textContent = "This system aims to help users automatically test their vision and provide relevant results and suggestions.";
-        moreInfo.textContent = "This project uses advanced visual test algorithms to help determine the user's vision health status based on their inputs.";
+        description.textContent = "This system was built by Jackson from HDNB KAINGMING class";
+        moreInfo.textContent = "This project uses computer vision algorithms to help our users conduct large-scale vision screening";
         backButton.textContent = "Back to Home";
       } else {
         title.textContent = "关于此项目";
-        description.textContent = "本系统旨在帮助用户自动检测视力，并提供相关测试结果与建议。";
-        moreInfo.textContent = "该项目使用先进的视觉测试算法，结合用户的输入信息，帮助判断视力健康状况。";
+        description.textContent = "本系统由宁波赫德KAINGMING班的Jackson搭建";
+        moreInfo.textContent = "该项目使用计算机视觉算法，来帮助我们的用户进行大规模的视力筛查";
         backButton.textContent = "返回首页";
       }
     }
@@ -135,7 +46,7 @@
 
     // 返回首页函数
     function goBack() {
-      const url = lang === 'en' ? "home.html?lang=en" : "home.html?lang=zh";
+      const url = lang === 'en' ? "/?lang=en" : "/?lang=zh";
       window.location.href = url;
     }
   </script>

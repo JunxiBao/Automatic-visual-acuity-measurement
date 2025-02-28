@@ -5,141 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>自动测视力系统</title>
-  <style>
-    /* 通用样式 */
-    body,
-    html {
-      height: 100%;
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f2f2f2;
-      overflow: hidden;
-    }
-
-    .container {
-      text-align: center;
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      padding: 50px 30px;
-      width: 80%;
-      max-width: 500px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    /* 标题样式 */
-    h1 {
-      font-size: 36px;
-      color: #4CAF50;
-      animation: slideInFromTop 1s ease-out;
-    }
-
-    /* 动画效果：从上方滑入 */
-    @keyframes slideInFromTop {
-      0% {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* 动画效果：淡入 */
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-      }
-
-      100% {
-        opacity: 1;
-      }
-    }
-
-    /* 按钮样式 */
-    .btn {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      background-color: #45a049;
-    }
-
-    /* 按钮浮动动画 */
-    .btn:hover {
-      animation: bounce 0.5s infinite alternate;
-    }
-
-    @keyframes bounce {
-      0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(-10px);
-      }
-    }
-    
-
-    /* 语言切换按钮和关于按钮样式 */
-    .language-switcher,
-    .about-button {
-      position: absolute;
-      top: 20px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    /* 语言切换按钮点击时的动画效果 */
-    .language-switcher:active,
-    .about-button:active {
-      transform: scale(0.95);
-      background-color: #f0f0f0;
-    }
-
-    /* 按钮旋转的动画效果 */
-    @keyframes rotateEffect {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .language-switcher.animate,
-    .about-button.animate {
-      animation: rotateEffect 0.5s ease-in-out;
-    }
-
-    /* 设置按钮的具体位置 */
-    .language-switcher {
-      right: 150px;
-      /* 调整间距，增加按钮之间的距离 */
-    }
-
-    .about-button {
-      right: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="../static/home.css">
 </head>
 
 <body>
@@ -177,13 +43,13 @@
 
       if (isChinese) {
         title.textContent = "欢迎使用自动测视力系统";
-        description.textContent = "本系统将帮助您检测视力，提供专业的测试方法和建议。";
+        description.textContent = "本系统使用计算机视觉算法来自动测量视力";
         startButton.textContent = "开始测试";
         languageSwitcher.textContent = "中文";
         aboutButton.textContent = "关于此项目";
       } else {
         title.textContent = "Welcome to the Automated Vision Test System";
-        description.textContent = "This system will help you test your vision and provide professional methods and recommendations.";
+        description.textContent = "This system uses computer vision algorithm to measure vision automatically";
         startButton.textContent = "Start Test";
         languageSwitcher.textContent = "English";
         aboutButton.textContent = "About This Project"; // 英文界面下的文本
@@ -192,7 +58,7 @@
 
     // 跳转到关于页面，并传递当前语言信息
     function goToAboutPage() {
-      const url = isChinese ? "about.html?lang=zh" : "about.html?lang=en";
+      const url = isChinese ? "/about?lang=zh" : "/about?lang=en";
       window.location.href = url;
     }
   </script>
