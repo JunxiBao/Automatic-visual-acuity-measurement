@@ -28,7 +28,7 @@
       animation: fadeIn 2s ease-out;
     }
 
-    /* 给图片添加过渡效果，避免频闪 */
+    /* 给图片添加过渡效果，避免频闪
     #faceImage {
       border-radius: 15px;
       width: 80%;
@@ -37,7 +37,7 @@
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
       transition: opacity 0.5s ease-in-out;
       opacity: 0;
-    }
+    } */
 
     /* 图片加载时的渐变效果 */
     #faceImage.loaded {
@@ -92,14 +92,14 @@
       }
     }
 
-    setInterval(updateImage, 500); // 每5秒更新一次图片
+    setInterval(updateImage, 100); // 每5秒更新一次图片
 
     // 页面首次加载时，确保图片显示出来
     window.onload = function () {
       setTimeout(function () {
         const imgElement = document.getElementById('faceImage');
         imgElement.classList.add('loaded');
-      }, 20); // 稍微延迟让图片加载
+      }, 0); // 稍微延迟让图片加载
     }
   </script>
 </body>
