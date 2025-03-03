@@ -34,7 +34,7 @@
       animation: fadeIn 1.5s ease-out;
     }
 
-    /* 盒子设计：白色背景 + 绿色边框 + 轻微阴影 */
+    /* 盒子设计 */
     .image-container {
       background: #ffffff;
       padding: 15px;
@@ -46,7 +46,6 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    /* 鼠标悬停时轻微放大 */
     .image-container:hover {
       transform: scale(1.02);
     }
@@ -89,16 +88,28 @@
   </div>
 
   <script>
-    // 动态更新图片，并避免频闪
+    let lastSuccessfulSrc = "../static/image/temp.jpeg?timestamp=0"; // 记录最后一张成功加载的图片
+
     function updateImage() {
       const imgElement = document.getElementById('faceImage');
       const timestamp = new Date().getTime();
-      imgElement.classList.remove('loaded');  // 移除“加载完成”类
-      imgElement.src = `../static/image/temp.jpeg?timestamp=${timestamp}`;
+      const newSrc = `../static/image/temp.jpeg?timestamp=${timestamp}`;
 
-      // 图片加载完成后，渐变显示
-      imgElement.onload = function () {
+      // 创建新的 Image 对象预加载
+      const tempImg = new Image();
+      tempImg.src = newSrc;
+
+      tempImg.onload = function () {
+        // 加载成功后，更新图片
+        lastSuccessfulSrc = newSrc;
+        imgElement.classList.remove('loaded');
+        imgElement.src = newSrc;
         imgElement.classList.add('loaded');
+      };
+
+      tempImg.onerror = function () {
+        console.error("图片加载失败，保留上一帧");
+        imgElement.src = lastSuccessfulSrc; // 加载失败时，保持上一帧
       };
     }
 
