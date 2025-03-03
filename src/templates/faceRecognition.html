@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人脸识别</title>
+  <style>
+    /* 设置页面的背景色和字体 */
+    body {
+      background: linear-gradient(135deg, #74b9ff, #a29bfe);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* 设置标题的样式 */
+    p {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    /* 给图片添加过渡效果，避免频闪 */
+    #faceImage {
+      border-radius: 15px;
+      width: 80%;
+      max-width: 600px;
+      height: auto;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      transition: opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+
+    /* 图片加载时的渐变效果 */
+    #faceImage.loaded {
+      opacity: 1;
+    }
+
+    /* 图片的过渡动画 */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 给刷新效果加一个动画 */
+    @keyframes refresh {
+      0% {
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <p>人脸识别</p>
+  <img id="faceImage" src="../static/image/temp.jpeg?timestamp=0" alt="人脸识别">
+
+  <script>
+    // 动态更新图片，并避免频闪
+    function updateImage() {
+      const imgElement = document.getElementById('faceImage');
+      const timestamp = new Date().getTime();
+      imgElement.classList.remove('loaded');  // 移除“加载完成”类
+      imgElement.src = `../static/image/temp.jpeg?timestamp=${timestamp}`;
+
+      // 等待图片加载完成后，添加“加载完成”类
+      imgElement.onload = function () {
+        imgElement.classList.add('loaded');
+      }
+    }
+
+    setInterval(updateImage, 500); // 每5秒更新一次图片
+
+    // 页面首次加载时，确保图片显示出来
+    window.onload = function () {
+      setTimeout(function () {
+        const imgElement = document.getElementById('faceImage');
+        imgElement.classList.add('loaded');
+      }, 20); // 稍微延迟让图片加载
+    }
+  </script>
+</body>
+
+</html>
