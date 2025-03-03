@@ -14,6 +14,11 @@ def about():
     lang = request.args.get('lang', 'zh')  # 获取URL中的语言参数，默认为中文
     return render_template('about.html', lang=lang)
 
+@app.route('/introduction')
+def introduction():
+    lang = request.args.get('lang', 'zh')  # 获取URL中的语言参数，默认为中文
+    return render_template('introduction.html', lang=lang)
+
 if __name__ == '__main__':
     # 启动Flask服务并监听所有可用的IP地址，这样在局域网中其他设备可以访问
     app.run(host='0.0.0.0', port=5000)

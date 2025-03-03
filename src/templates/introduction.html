@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于此项目</title>
+  <link rel="stylesheet" href="../static/home.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="title">准备开始</h1>
+    <p id="description">稍后我们将展示测试视力的图标</p>
+    <p id="moreInfo">请将手放在摄像机可以捕捉到的位置，并指向对应的方向</p>
+    <button class="btn" id="backButton" onclick="startTest()">返回首页</button>
+  </div>
+
+  <script>
+    // 获取 URL 中的语言参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+
+    // 切换语言
+    function switchLanguage() {
+      const title = document.getElementById("title");
+      const description = document.getElementById("description");
+      const moreInfo = document.getElementById("moreInfo");
+      const backButton = document.getElementById("backButton");
+
+      if (lang === 'en') {
+        title.textContent = "Ready to start";
+        description.textContent = "Later we will show you the icon to test your eyesight";
+        moreInfo.textContent = "Please place your hand where the camera can capture it and point it in the corresponding direction";
+        backButton.textContent = "Understood!";
+      } else {
+        title.textContent = "准备开始";
+        description.textContent = "稍后我们将展示测试视力的图标";
+        moreInfo.textContent = "请将手放在摄像机可以捕捉到的位置，并指向对应的方向";
+        backButton.textContent = "了解!";
+      }
+    }
+
+    // 页面加载时切换语言
+    window.onload = switchLanguage;
+
+    // 返回首页函数
+    function startTest() {
+      const url = lang === 'en' ? "/?lang=en" : "/?lang=zh";
+      window.location.href = url;
+    }
+  </script>
+</body>
+
+</html>

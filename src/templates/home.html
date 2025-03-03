@@ -15,7 +15,7 @@
   <div class="container">
     <h1 id="title">欢迎使用自动测视力系统</h1>
     <p id="description">本系统将帮助您检测视力，提供专业的测试方法和建议。</p>
-    <button class="btn" id="startButton">开始测试</button>
+    <button class="btn" id="startButton" onclick="goToIntroductionPage()">开始测试</button>
   </div>
 
   <script>
@@ -61,6 +61,11 @@
       const url = isChinese ? "/about?lang=zh" : "/about?lang=en";
       window.location.href = url;
     }
+
+    function goToIntroductionPage() {
+        const url = isChinese ? "/introduction?lang=zh" : "/introduction?lang=en";
+        window.location.href = url;
+      }
   </script>
 </body>
 
