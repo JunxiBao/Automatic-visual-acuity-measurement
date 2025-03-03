@@ -34,7 +34,7 @@ def track_display(dispW=640, dispH=480, step=1, model_path='../models/haarcascad
             
             # 转换为灰度图
             gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-            faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+            faces = face_cascade.detectMultiScale(gray, 1.3, 15)
             
             # 人脸检测与伺服控制
             for (x, y, w, h) in faces:

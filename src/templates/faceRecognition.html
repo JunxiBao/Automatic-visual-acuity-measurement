@@ -8,7 +8,8 @@
   <style>
     /* 设置页面的背景色和字体 */
     body {
-      background: linear-gradient(135deg, #74b9ff, #a29bfe);
+      background: #ffffff;
+      /* 纯白背景 */
       font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
@@ -16,35 +17,57 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      color: #fff;
+      color: #2d572c;
+      /* 绿色文字 */
       text-align: center;
-      overflow: hidden;
     }
 
     /* 设置标题的样式 */
     p {
       font-size: 2rem;
+      font-weight: bold;
       margin-bottom: 20px;
-      animation: fadeIn 2s ease-out;
+      border-bottom: 3px solid #2d572c;
+      /* 绿色下划线 */
+      display: inline-block;
+      padding-bottom: 5px;
+      animation: fadeIn 1.5s ease-out;
     }
 
-    /* 给图片添加过渡效果，避免频闪
-    #faceImage {
+    /* 盒子设计：白色背景 + 绿色边框 + 轻微阴影 */
+    .image-container {
+      background: #ffffff;
+      padding: 15px;
       border-radius: 15px;
-      width: 80%;
-      max-width: 600px;
+      border: 3px solid #2d572c;
+      /* 绿色边框 */
+      box-shadow: 0 5px 15px rgba(45, 87, 44, 0.2);
+      /* 绿色阴影 */
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* 鼠标悬停时轻微放大 */
+    .image-container:hover {
+      transform: scale(1.02);
+    }
+
+    /* 让图片更有质感 */
+    #faceImage {
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
       height: auto;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 15px rgba(45, 87, 44, 0.2);
       transition: opacity 0.5s ease-in-out;
       opacity: 0;
-    } */
+    }
 
     /* 图片加载时的渐变效果 */
     #faceImage.loaded {
       opacity: 1;
     }
 
-    /* 图片的过渡动画 */
+    /* 标题和内容淡入效果 */
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -56,27 +79,14 @@
         transform: translateY(0);
       }
     }
-
-    /* 给刷新效果加一个动画 */
-    @keyframes refresh {
-      0% {
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-      }
-    }
   </style>
 </head>
 
 <body>
-  <p>人脸识别</p>
-  <img id="faceImage" src="../static/image/temp.jpeg?timestamp=0" alt="人脸识别">
+  <p>实时人脸识别</p>
+  <div class="image-container">
+    <img id="faceImage" src="../static/image/temp.jpeg?timestamp=0" alt="人脸识别">
+  </div>
 
   <script>
     // 动态更新图片，并避免频闪
@@ -86,20 +96,19 @@
       imgElement.classList.remove('loaded');  // 移除“加载完成”类
       imgElement.src = `../static/image/temp.jpeg?timestamp=${timestamp}`;
 
-      // 等待图片加载完成后，添加“加载完成”类
+      // 图片加载完成后，渐变显示
       imgElement.onload = function () {
         imgElement.classList.add('loaded');
-      }
+      };
     }
 
-    setInterval(updateImage, 100); // 每5秒更新一次图片
+    setInterval(updateImage, 500); // 每0.5秒更新一次图片
 
     // 页面首次加载时，确保图片显示出来
     window.onload = function () {
       setTimeout(function () {
-        const imgElement = document.getElementById('faceImage');
-        imgElement.classList.add('loaded');
-      }, 0); // 稍微延迟让图片加载
+        document.getElementById('faceImage').classList.add('loaded');
+      }, 100);
     }
   </script>
 </body>
