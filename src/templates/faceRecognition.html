@@ -82,7 +82,7 @@
 </head>
 
 <body>
-  <p>实时人脸识别</p>
+  <p id="title">第一步：人脸识别</p>
   <div class="image-container">
     <img id="faceImage" src="../static/image/temp.jpeg?timestamp=0" alt="人脸识别">
   </div>
@@ -121,6 +121,25 @@
         document.getElementById('faceImage').classList.add('loaded');
       }, 100);
     }
+
+    // 获取 URL 中的语言参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get('lang');
+
+      // 切换语言
+      function switchLanguage() {
+        const title = document.getElementById("title");
+
+        if (lang === 'en') {
+          title.textContent = "Step 1: Face recognition";
+         
+        } else {
+          title.textContent = "第一步：人脸识别";
+        }
+      }
+
+      // 页面加载时切换语言
+      window.onload = switchLanguage;
   </script>
 </body>
 
