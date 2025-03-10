@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import threading
 import time
 import Track_Display
+import os
 
 app = Flask(__name__)
 isStart = False
@@ -33,7 +34,8 @@ def face():
         tread = threading.Thread(target=Track_Display.track_display)
         tread.start()
         isStart = True
-    
+
+
     return render_template('faceRecognition.html', lang=lang)
 
 if __name__ == '__main__':

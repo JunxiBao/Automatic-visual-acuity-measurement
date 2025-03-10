@@ -78,14 +78,24 @@ def recognize_faces_with_knn(input_image_path, knn, known_names, tolerance=0.6):
             recognized_names.append("Unknown")
     return recognized_names
 
-def main():
-    print("Starting...")
-    known_faces_dir = "../data/image"  # 存放已知人脸图片的目录
-    input_image_path = "../data/output.jpeg"  # 要识别的图片路径
 
-    knn, known_encodings, known_names = load_known_faces_with_knn(known_faces_dir)
-    print("Known names (without extensions):", known_names)
-    recognized_names = recognize_faces_with_knn(input_image_path, knn, known_names)
-    print("**********************")
-    print("Recognized names:", recognized_names)
-    print("**********************")
+    
+print("Starting...")
+known_faces_dir = "../data/faces"  # 存放已知人脸图片的目录
+input_image_path = "./static/image/output.jpeg"  # 要识别的图片路径
+
+knn, known_encodings, known_names = load_known_faces_with_knn(known_faces_dir)
+print("Known names (without extensions):", known_names)
+recognized_names = recognize_faces_with_knn(input_image_path, knn, known_names)
+print("**********************")
+print("Recognized names:", recognized_names)
+print("**********************")
+ # 创建一个字典变量
+data = {
+    "name":recognized_names
+}
+
+# 将字典写入 JSON 文件
+with open("data.json", "w") as json_file:
+    json.dump(data, json_file)
+

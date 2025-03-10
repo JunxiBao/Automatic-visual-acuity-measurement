@@ -3,6 +3,8 @@ from picamera2 import Picamera2
 import libcamera
 from adafruit_servokit import ServoKit
 import time
+import os
+import json
 
 def track_display(dispW=640, dispH=480, step=1, model_path='../models/haarcascade_frontalface_default.xml', output_path='./static/image/output.jpeg'):
     """摄像头视频采集与人脸检测"""
@@ -72,6 +74,8 @@ def track_display(dispW=640, dispH=480, step=1, model_path='../models/haarcascad
                     print("拍摄中～")
                     cv2.imwrite(output_path, frame)
                     print("图片拍摄完成！")
+                    name = os.system("python MyFaceRecognation.py")
+                   
                     break
                 
                 kit.servo[0].angle = pan
@@ -83,7 +87,6 @@ def track_display(dispW=640, dispH=480, step=1, model_path='../models/haarcascad
             else:
                 temp1, temp2, temp3, temp4 = 0, 0, 0, 0
                 
-            # 显示图像
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
             cv2.imwrite("./static/image/temp.jpeg", frame)
             
