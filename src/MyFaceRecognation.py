@@ -81,6 +81,7 @@ def recognize_faces_with_knn(input_image_path, knn, known_names, tolerance=0.6):
 
     
 print("Starting...")
+
 known_faces_dir = "../data/faces"  # 存放已知人脸图片的目录
 input_image_path = "./static/image/output.jpeg"  # 要识别的图片路径
 
@@ -96,6 +97,6 @@ data = {
 }
 
 # 将字典写入 JSON 文件
-with open("data.json", "w") as json_file:
+with open("./static/data.json", "w") as json_file:
     json.dump(data, json_file)
 

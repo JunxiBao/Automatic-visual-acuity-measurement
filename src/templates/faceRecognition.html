@@ -6,10 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>人脸识别</title>
   <style>
-    /* 设置页面的背景色和字体 */
     body {
       background: #ffffff;
-      /* 纯白背景 */
       font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
@@ -18,31 +16,25 @@
       min-height: 100vh;
       margin: 0;
       color: #2d572c;
-      /* 绿色文字 */
       text-align: center;
     }
 
-    /* 设置标题的样式 */
     p {
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 20px;
       border-bottom: 3px solid #2d572c;
-      /* 绿色下划线 */
       display: inline-block;
       padding-bottom: 5px;
       animation: fadeIn 1.5s ease-out;
     }
 
-    /* 盒子设计 */
     .image-container {
       background: #ffffff;
       padding: 15px;
       border-radius: 15px;
       border: 3px solid #2d572c;
-      /* 绿色边框 */
       box-shadow: 0 5px 15px rgba(45, 87, 44, 0.2);
-      /* 绿色阴影 */
       transition: transform 0.3s ease-in-out;
     }
 
@@ -50,7 +42,6 @@
       transform: scale(1.02);
     }
 
-    /* 让图片更有质感 */
     #faceImage {
       border-radius: 10px;
       width: 100%;
@@ -61,12 +52,10 @@
       opacity: 0;
     }
 
-    /* 图片加载时的渐变效果 */
     #faceImage.loaded {
       opacity: 1;
     }
 
-    /* 标题和内容淡入效果 */
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -88,58 +77,56 @@
   </div>
 
   <script>
-    let lastSuccessfulSrc = "../static/image/temp.jpeg?timestamp=0"; // 记录最后一张成功加载的图片
+    let lastSuccessfulSrc = "../static/image/temp.jpeg?timestamp=0";
 
     function updateImage() {
       const imgElement = document.getElementById('faceImage');
-      const timestamp = new Date().getTime();
+      const timestamp = Date.now();
       const newSrc = `../static/image/temp.jpeg?timestamp=${timestamp}`;
 
-      // 创建新的 Image 对象预加载
-      const tempImg = new Image();
-      tempImg.src = newSrc;
-
-      tempImg.onload = function () {
-        // 加载成功后，更新图片
-        lastSuccessfulSrc = newSrc;
-        imgElement.classList.remove('loaded');
-        imgElement.src = newSrc;
-        imgElement.classList.add('loaded');
-      };
-
-      tempImg.onerror = function () {
-        console.error("图片加载失败，保留上一帧");
-        imgElement.src = lastSuccessfulSrc; // 加载失败时，保持上一帧
-      };
+      fetch(newSrc, { method: 'HEAD' })
+        .then(response => {
+          if (response.ok) {
+            imgElement.src = newSrc;
+            imgElement.classList.add('loaded');
+            lastSuccessfulSrc = newSrc;
+          }
+        })
+        .catch(() => {
+          console.error("图片加载失败，保留上一帧");
+          imgElement.src = lastSuccessfulSrc;
+        });
     }
 
-    setInterval(updateImage, 500); // 每0.5秒更新一次图片
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang') || 'zh';
+    let isChinese = lang === 'zh';
 
-    // 页面首次加载时，确保图片显示出来
+    function switchLanguage() {
+      document.getElementById("title").textContent = isChinese ? "第一步：人脸识别" : "Step 1: Face recognition";
+      setInterval(checkJsonData, 1000); // **每 1 秒检查 JSON**
+    }
+
+    function checkJsonData() {
+      fetch('/static/data.json')
+        .then(response => response.json())
+        .then(data => {
+          if ((Array.isArray(data.name) && data.name.length > 0) ||
+            (typeof data.name === "string" && data.name !== "0")) {
+            // name 是数组且非空，或 name 是字符串且不为 "0"，则跳转
+            const url = lang === 'en' ? "/helloPeople?lang=en" : "/helloPeopel?lang=zh";
+            window.location.href = url;
+          }
+        })
+        .catch(error => console.error('Error fetching JSON:', error));
+    }
+
     window.onload = function () {
-      setTimeout(function () {
-        document.getElementById('faceImage').classList.add('loaded');
-      }, 100);
-    }
+      switchLanguage();
+      setTimeout(() => document.getElementById('faceImage').classList.add('loaded'), 100);
+    };
 
-    // 获取 URL 中的语言参数
-      const urlParams = new URLSearchParams(window.location.search);
-      const lang = urlParams.get('lang');
-
-      // 切换语言
-      function switchLanguage() {
-        const title = document.getElementById("title");
-
-        if (lang === 'en') {
-          title.textContent = "Step 1: Face recognition";
-         
-        } else {
-          title.textContent = "第一步：人脸识别";
-        }
-      }
-
-      // 页面加载时切换语言
-      window.onload = switchLanguage;
+    setInterval(updateImage, 1000);
   </script>
 </body>
 
