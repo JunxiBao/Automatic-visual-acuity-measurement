@@ -114,7 +114,7 @@
           if ((Array.isArray(data.name) && data.name.length > 0) ||
             (typeof data.name === "string" && data.name !== "0")) {
             // name 是数组且非空，或 name 是字符串且不为 "0"，则跳转
-            const url = lang === 'en' ? "/helloPeople?lang=en" : "/helloPeopel?lang=zh";
+            const url = lang === 'en' ? "/helloPeopel?lang=en" : "/helloPeopel?lang=zh";
             window.location.href = url;
           }
         })
