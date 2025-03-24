@@ -89,11 +89,14 @@
           if (response.ok) {
             imgElement.src = newSrc;
             imgElement.classList.add('loaded');
-            lastSuccessfulSrc = newSrc;
+            lastSuccessfulSrc = newSrc; // 更新成功加载的图片源
+          } else {
+            // 如果加载失败，则保留上一帧
+            imgElement.src = lastSuccessfulSrc;
           }
         })
         .catch(() => {
-          console.error("图片加载失败，保留上一帧");
+          // 如果发生网络错误，也保留上一帧
           imgElement.src = lastSuccessfulSrc;
         });
     }
