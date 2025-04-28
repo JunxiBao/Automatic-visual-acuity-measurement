@@ -32,12 +32,12 @@
         title.textContent = "Hi, " + name; // 英文模式
         description.textContent = "This system was built by Jackson from HDNB KAINGMING class";
         moreInfo.textContent = "This project uses computer vision algorithms to help our users conduct large-scale vision screening";
-        backButton.textContent = "Back to Home";
+        backButton.textContent = "Start vision test";
       } else {
         title.textContent = "你好, " + name; // 中文模式
         description.textContent = "本系统由宁波赫德KAINGMING班的Jackson搭建";
         moreInfo.textContent = "该项目使用计算机视觉算法，来帮助我们的用户进行大规模的视力筛查";
-        backButton.textContent = "返回首页";
+        backButton.textContent = "开始视力检测";
       }
     }
 
@@ -54,7 +54,7 @@
 
     // 返回首页函数
     function goBack() {
-      const url = lang === 'en' ? "/?lang=en" : "/?lang=zh";
+      const url = lang === 'en' ? "/Introduction_to_Gesture_Recognition?lang=en" : "/Introduction_to_Gesture_Recognition?lang=zh";
       window.location.href = url;
     }
   </script>

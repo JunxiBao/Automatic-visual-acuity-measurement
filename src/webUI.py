@@ -47,6 +47,11 @@ def helloPeople():
 def serve_data():
     return app.send_static_file('data.json')
 
+@app.route('/Introduction_to_Gesture_Recognition')
+def Introduction_to_Gesture_Recognition():
+    lang = request.args.get('lang', 'zh')
+    return render_template('Introduction_to_Gesture_Recognition.html', lang=lang)
+
 if __name__ == '__main__':
     print("cleaning json file...")
     init = {
